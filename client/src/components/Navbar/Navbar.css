@@ -1,0 +1,274 @@
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar container */
+nav {
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Navbar heading */
+nav h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  background: linear-gradient(135deg, #111, #2563eb);
+  transition: transform 0.3s ease;
+}
+
+nav h1:hover {
+  transform: translateY(-2px);
+}
+
+/* Navigation list */
+ul {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation links */
+a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+a:hover {
+  color: #2563eb;
+  transform: translateY(-2px);
+}
+
+/* Active link styling - improved */
+.active {
+  font-weight: 600;
+  color: #2563eb !important;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  border-radius: 2px;
+  animation: underlineSlide 0.3s ease;
+  padding-bottom: 0;
+}
+
+@keyframes underlineSlide {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+/* Mobile menu button */
+button {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #111;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #f1f5f9;
+  color: #2563eb;
+  transform: scale(1.05);
+}
+
+/* Mobile overlay for better UX */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Mobile menu styles */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 1rem;
+    height: 3.5rem;
+    min-width: 100%;
+  }
+  
+  button {
+    display: flex;
+  }
+  
+  /* Hide desktop menu by default on mobile */
+  ul {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 280px;
+    height: 100vh;
+    background: white;
+    padding: 5rem 1.5rem 2rem;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  /* Show mobile menu when open */
+  ul.open {
+    display: flex;
+    right: 0;
+  }
+  
+  li {
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideInFromRight 0.3s ease forwards;
+  }
+  
+  @keyframes slideInFromRight {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Staggered animation for menu items */
+  ul.open li:nth-child(1) { animation-delay: 0.1s; }
+  ul.open li:nth-child(2) { animation-delay: 0.15s; }
+  ul.open li:nth-child(3) { animation-delay: 0.2s; }
+  
+  li a {
+    display: flex;
+    width: 100%;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1.1rem;
+  }
+  
+  li:last-child a {
+    border-bottom: none;
+  }
+  
+  /* Different active state for mobile */
+  li a.active {
+    background-color: rgba(37, 99, 235, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-bottom: none;
+  }
+  
+  li a.active::after {
+    display: none;
+  }
+  
+  /* Show overlay when menu is open */
+  .mobile-overlay.open {
+    display: block;
+    opacity: 1;
+  }
+}
+
+/* Desktop enhancements */
+@media (min-width: 769px) {
+  nav {
+    padding: 0 2rem;
+  }
+  
+  ul {
+    gap: 3rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  nav {
+    background-color: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  nav h1 {
+    background: linear-gradient(135deg, #ffffff, #2563eb);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  a {
+    color: #e5e7eb;
+  }
+  
+  a:hover {
+    color: #2563eb;
+  }
+  
+  button {
+    color: #e5e7eb;
+  }
+  
+  button:hover {
+    background-color: #2d3748;
+  }
+  
+  @media (max-width: 768px) {
+    ul {
+      background: #1a1a1a;
+    }
+    
+    li a {
+      color: #e5e7eb;
+      border-bottom-color: #2d3748;
+    }
+    
+    li a.active {
+      background-color: rgba(37, 99, 235, 0.2);
+    }
+  }
+}
