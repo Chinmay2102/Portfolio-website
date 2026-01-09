@@ -325,6 +325,7 @@ main::before {
   
   main {
     padding: 1rem 0.5rem;
+    display: block;
   }
   
   .hero {
@@ -368,5 +369,289 @@ main::before {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ===== About Page Styles ===== */
+
+/* Target the About page using the class */
+main.about-page {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  position: relative;
+  display: block;
+  min-height: auto;
+  align-items: stretch;
+}
+
+main.about-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 40%);
+  z-index: -1;
+}
+
+/* About Page Sections */
+main.about-page > section {
+  margin-bottom: 4rem;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Section animations */
+main.about-page > section:nth-child(1) { animation-delay: 0.1s; }
+main.about-page > section:nth-child(2) { animation-delay: 0.3s; }
+main.about-page > section:nth-child(3) { animation-delay: 0.5s; }
+
+/* Gradient top borders for sections */
+main.about-page > section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Specific gradient for different sections */
+main.about-page > section:nth-child(2)::before {
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+}
+
+main.about-page > section:nth-child(3)::before {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+}
+
+/* About Page Headings */
+main.about-page h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+}
+
+main.about-page h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+}
+
+main.about-page h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1e293b;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+main.about-page h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+}
+
+/* About Page Paragraphs */
+main.about-page p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
+/* About Page Skills List */
+main.about-page ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+main.about-page li {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.8) 100%);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  color: #334155;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Skills icons */
+main.about-page li::before {
+  content: '✓';
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+main.about-page li:nth-child(1)::before { content: '🌐'; }
+main.about-page li:nth-child(2)::before { content: '⚛️'; }
+main.about-page li:nth-child(3)::before { content: '🐍'; }
+main.about-page li:nth-child(4)::before { content: '🗄️'; }
+main.about-page li:nth-child(5)::before { content: '🔧'; }
+
+main.about-page li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #c7d2fe;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
+}
+
+main.about-page li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+main.about-page li:hover::after {
+  opacity: 1;
+}
+
+/* Timeline in About Page */
+main.about-page .timeline {
+  margin: 2rem 0;
+}
+
+/* Quote styling for first paragraph */
+main.about-page > section:first-child p:first-of-type {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 4px solid #3b82f6;
+  font-style: italic;
+  color: #4b5563;
+}
+
+/* Section hover effects */
+main.about-page > section:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* About Page Specific Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for About Page */
+@media (max-width: 1024px) {
+  main.about-page {
+    padding: 0 1.5rem;
+    margin: 3rem auto;
+  }
+  
+  main.about-page > section {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  main.about-page {
+    padding: 0 1rem;
+    margin: 2rem auto;
+  }
+  
+  main.about-page h1 {
+    font-size: 2.75rem;
+  }
+  
+  main.about-page h2 {
+    font-size: 2rem;
+  }
+  
+  main.about-page p {
+    font-size: 1.125rem;
+  }
+  
+  main.about-page > section {
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  main.about-page ul {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  main.about-page li {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  main.about-page .timeline {
+    margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  main.about-page h1 {
+    font-size: 2.25rem;
+  }
+  
+  main.about-page h2 {
+    font-size: 1.75rem;
+  }
+  
+  main.about-page > section {
+    padding: 1.25rem;
+  }
+  
+  main.about-page li {
+    padding: 0.875rem 1rem;
   }
 }
