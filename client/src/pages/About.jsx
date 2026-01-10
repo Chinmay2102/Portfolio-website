@@ -10,7 +10,7 @@ function About() {
   ];
 
   return (
-    <main className="about-page">
+    <main className="about-page" id="about">
       <section>
         <h1>About Me</h1>
 

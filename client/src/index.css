@@ -1300,3 +1300,96 @@ body {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* ===============================
+   CLEAN RESPONSIVE REFINEMENTS
+   (APPEND ONLY – NO DESKTOP CHANGES)
+================================ */
+
+@media (max-width: 768px) {
+  main {
+    padding-top: 64px;
+  }
+
+  h1, h2, h3 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    height: auto;
+    border-radius: 18px;
+  }
+
+  .project-content {
+    padding: 1.25rem;
+  }
+
+  .PVM,
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-filter {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+  }
+}
+
+/* ===============================
+   ANIMATED BACKGROUND EFFECT
+================================ */
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+  z-index: -2;
+  animation: floatBg 18s infinite alternate ease-in-out;
+}
+
+body::before {
+  background: #2563eb;
+  top: 10%;
+  left: 5%;
+}
+
+body::after {
+  background: #7c3aed;
+  bottom: 10%;
+  right: 5%;
+  animation-delay: 6s;
+}
+
+@keyframes floatBg {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(60px, -40px); }
+  100% { transform: translate(-40px, 60px); }
+}

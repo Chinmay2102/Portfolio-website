@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard/ProjectCard'
 
 const Projects = () => {
   return (
-    <section className="projects-page"> {/* Add this class */}
+    <section className="projects-page" id='projects'> 
       <h1>My Projects</h1>
       
       {/* Stats Bar */}
