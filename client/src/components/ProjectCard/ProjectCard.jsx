@@ -5,10 +5,10 @@ const ProjectCard = ({
   title, 
   description, 
   image, 
-  fullDescription = "This is a full description of the project with more details about technologies used, challenges faced, and solutions implemented.", 
-  technologies = ["React", "Django", "PostgreSQL", "Tailwind CSS", "REST API"],
-  liveLink = "#",
-  githubLink = "#"
+  fullDescription, 
+  tech, 
+  liveLink,
+  codeLink,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -56,8 +56,8 @@ const ProjectCard = ({
                 <p>{fullDescription}</p>
                 
                 <div className="modal-tech">
-                  {technologies.map((tech, index) => (
-                    <span key={index} className="tech-tag">{tech}</span>
+                  {tech.map((item, index) => (
+                    <span key={index} className="tech-tag">{item}</span>
                   ))}
                 </div>
                 
@@ -65,7 +65,7 @@ const ProjectCard = ({
                   <a href={liveLink} className="modal-link" target="_blank" rel="noopener noreferrer">
                     <span>🌐 Live Demo</span>
                   </a>
-                  <a href={githubLink} className="modal-link secondary" target="_blank" rel="noopener noreferrer">
+                  <a href={codeLink} className="modal-link secondary" target="_blank" rel="noopener noreferrer">
                     <span>💻 View Code</span>
                   </a>
                 </div>
