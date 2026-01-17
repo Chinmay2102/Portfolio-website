@@ -79,14 +79,12 @@ const Projects = () => {
       </div>
       
       {/* Call to Action */}
-     {/* // In your Projects.jsx, update the contact button section: */}
       <div className="projects-cta">
         <h3>Have a project in mind?</h3>
         <p>Let's work together to bring your ideas to life</p>
         <button 
           className="cta-button"
           onClick={() => {
-            // You can change this to navigate to a contact page or show a modal
             window.location.href = "mailto:chinmay@example.com";
           }}
         >
