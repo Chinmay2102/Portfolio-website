@@ -1,38 +1,13 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.exceptions import PermissionDenied
 from .models import Project
 from .serializers import ProjectSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
 
-@api_view(["GET", "POST"])
-def project_list(request):
-    # ✅ PUBLIC: anyone can view projects
-    if request.method == "GET":
-        projects = Project.objects.all()
-        search = request.query_params.get("search")
-        tech = request.query_params.get("tech")
+class ProjectListView(ListCreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
-        if search:
-            projects = projects.filter(title__icontains=search)
-        
-        if tech:
-            projects = projects.filter(tech_stack__icontains=tech)
-
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data)
-
-    # 🔒 PROTECTED: only logged-in users can create
-    if request.method == "POST":
-        if not request.user.is_authenticated:
-            return Response(
-                {"detail": "Authentication required"},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
-        serializer = ProjectSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied("Authentication required")
+        serializer.save()

@@ -1393,3 +1393,10 @@ body::after {
   50% { transform: translate(60px, -40px); }
   100% { transform: translate(-40px, 60px); }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}

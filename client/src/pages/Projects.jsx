@@ -4,13 +4,27 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 
 const Projects = () => {
   const [projects, setProject] = useState([]);
-  const [loading, setLoading]= useState(true);
-  const [error, setError]= useState(null);
-  const [search, setSearch]= useState('');
-  const [tech, setTech]= useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [search, setSearch] = useState("");
+  const [tech, setTech] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+
+  const PAGE_SIZE = 5;
+  const totalPages = Math.ceil(count / PAGE_SIZE);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, tech]);
   
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    setLoading(true);
+    setError(null);
+
+    const params = new URLSearchParams();
+    params.append("page", page);
 
     if (search) params.append("search", search);
     if (tech) params.append("tech", tech);
@@ -21,22 +35,20 @@ const Projects = () => {
         return res.json();
       })
       .then((data) => {
-        setProject(data);
+        setProject(data.results);
+        setCount(data.count);
         setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
-  }, [search, tech]);
+  }, [page, search, tech]);
 
-  if (loading) {
-    return <p>Loading projects ...</p>;
-  }
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <p>Loading projects...</p>;
+  if (error) return <p>{error}</p>;
+
 
   return (
     <section className="projects-page" id='projects'> 
@@ -68,23 +80,43 @@ const Projects = () => {
       
       {/* Project Cards */}
       <div className="projects-grid">
-        {projects.map((project) =>(
-          <ProjectCard 
-            key={project.id}
-            title={project.title} 
-            description={project.discription}
-            fullDescription={project.discription}
-            tech={project.tech_stack}
-            demoLink={project.demo_link}
-            codeLink={project.code_link}
-            image={project.image
-              ? `http://127.0.0.1:8000${project.image}`
-              : null
-            }
-          />
-        ))}
-        
+        {projects.length === 0 ? (
+          <p>No projects found.</p>
+        ) : (
+          projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.discription}
+              fullDescription={project.discription}
+              tech={project.tech_stack}
+              image={project.image}
+            />
+          ))
+        )}
       </div>
+
+      <div className="pagination">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage((p) => p - 1)}
+        >
+          Previous
+        </button>
+
+        <span>
+          Page {page} of {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage((p) => p + 1)}
+        >
+          Next
+        </button>
+      </div>
+
+
       
       {/* Call to Action */}
       <div className="projects-cta">
