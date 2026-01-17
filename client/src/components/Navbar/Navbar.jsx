@@ -77,6 +77,15 @@ function Navbar() {
                         Projects
                     </NavLink>
                 </li>
+
+                <li>
+                    <NavLink 
+                        to="/add-project" 
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                        Add Project
+                    </NavLink>
+                </li>
             </ul>
 
             {/* Mobile Menu Button */}
@@ -137,6 +146,16 @@ function Navbar() {
                             className={({ isActive }) => (isActive ? "active" : "")}
                         >
                             Projects
+                        </NavLink>
+                    </li>
+
+                    <li>
+                        <NavLink 
+                            to="/add-project" 
+                            onClick={() => setMenuOpen(false)} 
+                            className={({ isActive }) => (isActive ? "active" : "")}
+                        >
+                            Add Project
                         </NavLink>
                     </li>
                 </ul>

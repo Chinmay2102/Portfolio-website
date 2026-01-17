@@ -11,9 +11,9 @@ const AddProject = () => {
     const [success, setSuccess] = useState(null);
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
+        e.preventDefault();
+        setError(null);
+        setSuccess(null);
 
     const token = localStorage.getItem("accessToken");
 
@@ -21,19 +21,24 @@ const AddProject = () => {
         setError("You must be logged in");
         return;
     }
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("discription", discription); // ✅ FIXED spelling
+    formData.append(
+        "tech_stack",
+        JSON.stringify(techStack.split(",").map(t => t.trim()))
+    );
+
+    if (image) {
+        formData.append("image", image);
+    }
 
     const response = await fetch("http://127.0.0.1:8000/api/projects/", {
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({
-        title,
-        discription,
-        tech_stack: techStack.split(",").map(t => t.trim()),
-        image,
-        }),
+        body: formData,
     });
 
     const data = await response.json();
@@ -47,6 +52,8 @@ const AddProject = () => {
     setTitle("");
     setdiscription("");
     setTechStack("");
+    setImage(null);
+    setPreview(null);
     };
 
 

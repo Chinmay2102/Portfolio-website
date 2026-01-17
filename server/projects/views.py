@@ -10,6 +10,15 @@ def project_list(request):
     # ✅ PUBLIC: anyone can view projects
     if request.method == "GET":
         projects = Project.objects.all()
+        search = request.query_params.get("search")
+        tech = request.query_params.get("tech")
+
+        if search:
+            projects = projects.filter(title__icontains=search)
+        
+        if tech:
+            projects = projects.filter(tech_stack__icontains=tech)
+
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 

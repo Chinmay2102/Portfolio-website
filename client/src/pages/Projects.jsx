@@ -1,22 +1,26 @@
 import React from 'react'
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
-import { data } from 'react-router-dom';
 
 const Projects = () => {
   const [projects, setProject] = useState([]);
   const [loading, setLoading]= useState(true);
   const [error, setError]= useState(null);
+  const [search, setSearch]= useState('');
+  const [tech, setTech]= useState('');
   
-  useEffect(()=>{
-    fetch('http://127.0.0.1:8000/api/projects/')
-      .then((res)=>{
-        if(!res.ok) {
-          throw new Error('Failed to fetch projects');
-        }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (search) params.append("search", search);
+    if (tech) params.append("tech", tech);
+
+    fetch(`http://127.0.0.1:8000/api/projects/?${params.toString()}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch projects");
         return res.json();
       })
-      .then((data)=> {
+      .then((data) => {
         setProject(data);
         setLoading(false);
       })
@@ -24,7 +28,7 @@ const Projects = () => {
         setError(err.message);
         setLoading(false);
       });
-  },[])
+  }, [search, tech]);
 
   if (loading) {
     return <p>Loading projects ...</p>;
@@ -41,7 +45,7 @@ const Projects = () => {
       {/* Stats Bar */}
       <div className="projects-stats">
         <div className="stat-item">
-          <div className="stat-number">8</div>
+          <div className="stat-number">{projects.length}</div>
           <div className="stat-label">Total Projects</div>
         </div>
         <div className="stat-item">
@@ -56,10 +60,10 @@ const Projects = () => {
       
       {/* Filter Buttons */}
       <div className="projects-filter">
-        <button className="filter-btn active">All</button>
-        <button className="filter-btn">React</button>
-        <button className="filter-btn">Django</button>
-        <button className="filter-btn">Full Stack</button>
+        <button className="filter-btn active" onClick={() => { setTech(''); setSearch(''); }}>All</button>
+        <button className="filter-btn" onClick={() => setTech('React')}>React</button>
+        <button className="filter-btn" onClick={() => setTech('Django')}>Django</button>
+        <button className="filter-btn" onClick={() => setTech('Full Stack')}>Full Stack</button>
       </div>
       
       {/* Project Cards */}
