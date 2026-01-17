@@ -73,6 +73,10 @@ const Projects = () => {
             tech={project.tech_stack}
             demoLink={project.demo_link}
             codeLink={project.code_link}
+            image={project.image
+              ? `http://127.0.0.1:8000${project.image}`
+              : null
+            }
           />
         ))}
         

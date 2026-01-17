@@ -5,6 +5,8 @@ const AddProject = () => {
     const [title, setTitle] = useState("");
     const [discription, setdiscription] = useState("");
     const [techStack, setTechStack] = useState("");
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState(null);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
@@ -30,6 +32,7 @@ const AddProject = () => {
         title,
         discription,
         tech_stack: techStack.split(",").map(t => t.trim()),
+        image,
         }),
     });
 
@@ -72,6 +75,16 @@ const AddProject = () => {
             value={techStack}
             onChange={(e) => setTechStack(e.target.value)}
             />
+
+            <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+              setPreview(URL.createObjectURL(e.target.files[0]));
+            }}
+            />
+            <img src={preview} style={{maxWidth: "100%", maxHeight: "200px", border: "2px solid #ccc",borderRadius: "10px"}} />
 
             <button type="submit">Create Project</button>
         </form>

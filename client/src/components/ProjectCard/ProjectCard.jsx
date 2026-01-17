@@ -27,7 +27,7 @@ const ProjectCard = ({
     <>
       <div className="project-card" onClick={openModal}>
         <img 
-          src={image || "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1120&auto=format&fit=crop"} 
+          src={image} 
           alt={title}
           className="imgcover" 
         />
@@ -46,7 +46,7 @@ const ProjectCard = ({
             
             <div className="modal-content">
               <img 
-                src={image || "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1120&auto=format&fit=crop"}
+                src={image}
                 alt={title}
                 className="modal-image"
               />

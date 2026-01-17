@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Project
 from .serializers import ProjectSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 @api_view(["GET", "POST"])
 def project_list(request):
