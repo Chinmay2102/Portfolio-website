@@ -1,10 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Navbar.css";
+import {logout,isAuthenticated} from "../../utils/auth";
 
 function Navbar() {
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
 
     // Close mobile menu when clicking outside
     useEffect(() => {
@@ -86,6 +93,12 @@ function Navbar() {
                         Add Project
                     </NavLink>
                 </li>
+
+                <li>
+                    {isAuthenticated() && (
+                        <button onClick={handleLogout}>Logout</button>
+                    )}
+                </li>
             </ul>
 
             {/* Mobile Menu Button */}
@@ -96,6 +109,7 @@ function Navbar() {
                 aria-expanded={menuOpen}
             >
                 <span className="menu-icon">
+                    <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
@@ -157,6 +171,12 @@ function Navbar() {
                         >
                             Add Project
                         </NavLink>
+                    </li>
+
+                    <li>
+                        {isAuthenticated() && (
+                            <button onClick={handleLogout}>Logout</button>
+                        )}
                     </li>
                 </ul>
             </div>

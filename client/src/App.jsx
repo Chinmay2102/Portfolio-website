@@ -5,6 +5,8 @@ import Projects from "./pages/Projects";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
 import AddProject from "./pages/AddProject";
+import ProtectedRoute from "./components/ProtectedRoutes";
+
 
 
 function App() {
@@ -16,7 +18,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/add-project" element={<AddProject />} />
+        <Route path="/add-project" element={
+              <ProtectedRoute>
+                <AddProject />
+              </ProtectedRoute> }/>
+
 
       </Routes>
     </>
