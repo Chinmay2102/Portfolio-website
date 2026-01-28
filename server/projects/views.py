@@ -8,6 +8,9 @@ class ProjectListView(ListCreateAPIView):
     serializer_class = ProjectSerializer
 
     def perform_create(self, serializer):
-        if not self.request.user.is_authenticated:
+        user = self.request.user
+        if not user.is_authenticated:
             raise PermissionDenied("Authentication required")
+        if not user.is_staff:
+            raise PermissionDenied("Admin access required")
         serializer.save()

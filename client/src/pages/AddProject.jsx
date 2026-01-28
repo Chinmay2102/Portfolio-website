@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { fetchWithAuth } from "../utils/fetchWithAuth";
+import { isAdmin } from "../utils/authService";
 import React from 'react'
 
 const AddProject = () => {
@@ -32,6 +33,10 @@ const AddProject = () => {
 
     if (image) {
         formData.append("image", image);
+    }
+
+    if (!isAdmin()) {
+         return <p>Admin access required.</p>;
     }
 
     const response = await fetchWithAuth(

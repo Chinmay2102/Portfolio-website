@@ -2,6 +2,7 @@ import { NavLink,useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Navbar.css";
 import {logout,isAuthenticated} from "../../utils/auth";
+import { isAdmin } from "../../utils/authService";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -86,12 +87,14 @@ function Navbar() {
                 </li>
 
                 <li>
-                    <NavLink 
-                        to="/add-project" 
-                        className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                        Add Project
-                    </NavLink>
+                    {isAdmin() && (
+                        <NavLink 
+                            to="/add-project" 
+                            className={({ isActive }) => (isActive ? "active" : "")}
+                        >
+                            Add Project
+                        </NavLink>
+                    )}
                 </li>
 
                 <li>

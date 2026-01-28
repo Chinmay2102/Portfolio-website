@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import useProjects from "../hooks/useProjects";
+import { isAdmin } from "../utils/authService";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 const PAGE_SIZE = 5;
@@ -24,10 +25,13 @@ function Projects() {
 
   if (loading) return <p>Loading projects...</p>;
   if (error) return <p>{error}</p>;
+  const token = localStorage.getItem("accessToken");
+  // console.log(JSON.parse(atob(token.split('.')[1])));
 
   return (
     <main className="projects-page" >
       <h1>Projects</h1>
+       {isAdmin() && <span className="admin-badge">Admin</span>}
 
       <div className="projects-stats">
         <div className="stat-item">

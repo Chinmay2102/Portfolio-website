@@ -17,6 +17,20 @@ export function logout() {
   localStorage.removeItem("refreshToken");
 }
 
+export function isAdmin() {
+  const token = localStorage.getItem("accessToken");
+  if (!token) return false;
+
+  try {
+    const base64Payload = token.split('.')[1];
+    const payload = JSON.parse(atob(base64Payload));
+    return payload?.is_staff === true;
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return false;
+  }
+}
+
 export async function refreshAccessToken() {
   const refresh = getRefreshToken();
 
