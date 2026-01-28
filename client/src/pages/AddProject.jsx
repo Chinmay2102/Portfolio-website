@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { fetchWithAuth } from "../utils/fetchWithAuth";
 import React from 'react'
 
 const AddProject = () => {
@@ -33,19 +34,19 @@ const AddProject = () => {
         formData.append("image", image);
     }
 
-    const response = await fetch("http://127.0.0.1:8000/api/projects/", {
+    const response = await fetchWithAuth(
+    `${API_BASE}/api/projects/`,
+    {
         method: "POST",
-        headers: {
-        "Authorization": `Bearer ${token}`,
-        },
         body: formData,
-    });
+    }
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
-        setError("Failed to create project");
-        return;
+    setError("Session expired. Please login again.");
+    return;
     }
 
     setSuccess("Project created successfully");

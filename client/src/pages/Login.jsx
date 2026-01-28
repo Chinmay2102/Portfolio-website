@@ -23,6 +23,7 @@ const Login = () => {
     }
 
     localStorage.setItem("accessToken", data.access);
+    localStorage.setItem("refreshToken", data.refresh);
     alert("Login successful");
     };
 
